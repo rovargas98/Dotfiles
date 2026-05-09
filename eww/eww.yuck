@@ -1,0 +1,15 @@
+(defwidget command-center []
+  (box :orientation "v" :space-evenly "false" :class "command-center"
+    (box :class "audio"
+      (label :text "AUDIO")
+      (progress :value {audio_volume} :class "volume")
+      (graph :values {audio_levels} :class "vumeter"))
+
+    (box :class "metrics"
+      (graph :values {cpu_usage} :class "cpu")
+      (graph :values {gpu_usage} :class "gpu"))
+
+    (box :class "now-playing"
+      (label :text {spotify_track})
+      (label :text {spotify_artist})))
+)

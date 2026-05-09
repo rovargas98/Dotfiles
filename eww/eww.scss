@@ -1,0 +1,13 @@
+.command-center {
+  background-color: rgba(26, 27, 38, 0.7);
+  border-radius: 10px;
+  border: 1px solid #7aa2f7;
+}
+
+.volume, .vumeter, .cpu, .gpu {
+  color: #7dcfff;
+}
+
+.vumeter-critical {
+  color: #ff2a3a; /* rojo Berserk solo en crítico */
+}

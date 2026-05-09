@@ -1,0 +1,18 @@
+[pyprland]
+plugins = ["scratchpads"]
+
+[scratchpads.term]
+command = "kitty --class scratch-term"
+size = "60% 70%"
+
+[scratchpads.notes]
+command = "kitty --class scratch-notes nvim ~/.notes/quicknotes.md"
+size = "50% 60%"
+
+[scratchpads.music]
+command = "spotify"
+size = "35% 50%"
+
+[scratchpads.serial]
+command = "kitty --class scratch-serial"
+size = "40% 50%"
