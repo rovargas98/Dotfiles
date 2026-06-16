@@ -1,0 +1,23 @@
+[pyprland]
+plugins = ["scratchpads"]
+
+[scratchpads.term]
+command = "kitty --class scratch-term"
+size_percent = 60
+margin = 100
+position = "top center"
+
+[scratchpads.music]
+command = "spotify"
+size_percent = 50
+position = "top right"
+
+[scratchpads.notes]
+command = "kitty --class scratch-notes nvim ~/.notes/quicknotes.md"
+size_percent = 50
+position = "top center"
+
+[scratchpads.serial]
+command = "kitty --class scratch-serial"
+size_percent = 50
+position = "bottom center"

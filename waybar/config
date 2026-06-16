@@ -1,0 +1,99 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 34,
+  "spacing": 4,
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["mpris"],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "disk",
+    "memory",
+    "custom/cpu_telemetry",
+    "custom/gpu_telemetry",
+    "clock",
+    "tray"
+  ],
+  
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "", "2": "󰈹", "3": "", "4": "", "5": "󰙯",
+      "urgent": "", "active": "", "default": ""
+    }
+  },
+  
+  "hyprland/window": { "format": "  {title}", "max-length": 40 },
+
+  "mpris": {
+    "format": "{player_icon}  {title} - {artist}",
+    "format-paused": "  <i>{title} - {artist}</i>",
+    "player-icons": { "default": "", "spotify": "" },
+    "max-length": 45,
+    "on-click": "play-pause",
+    "on-scroll-up": "next",
+    "on-scroll-down": "previous"
+  },
+
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-muted": "  Muted",
+    "format-icons": { "default": ["", "", ""] },
+    "on-click": "pavucontrol",
+    "on-click-right": "~/Dotfiles/waybar/scripts/audio-switch.sh"
+  },
+
+  "network": {
+    "interval": 2,
+    "format-wifi": "  {bandwidthDownBytes} ⇣ {bandwidthUpBytes} ⇡",
+    "format-ethernet": "󰈀  {bandwidthDownBytes} ⇣ {bandwidthUpBytes} ⇡",
+    "tooltip-format": "IP: {ipaddr}\nGateway: {gwaddr}\nRed: {essid}"
+  },
+
+  "disk": {
+    "interval": 30,
+    "format": "  {percentage_used}%",
+    "tooltip-format": "INFORME DE DISCO:\nTotal: {total}\nUsado: {used}\nLibre: {free}\nRuta: {path}"
+  },
+
+  "memory": {
+    "interval": 5,
+    "format": "  {percentage}%",
+    "tooltip-format": "INFORME DE RAM:\nTotal: {total:0.1f}GB\nUsado: {used:0.1f}GB\nDisponible: {avail:0.1f}GB\nSwap Usado: {swapUsed:0.1f}GB"
+  },
+
+  "custom/cpu_telemetry": {
+    "exec": "~/Dotfiles/waybar/scripts/cpu-telemetry.sh",
+    "return-type": "json",
+    "interval": 2
+  },
+
+  "custom/gpu_telemetry": {
+    "exec": "~/Dotfiles/waybar/scripts/gpu-telemetry.sh",
+    "return-type": "json",
+    "interval": 2
+  },
+
+  "clock": {
+    "format": " {:%H:%M   %d/%m}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode"          : "month",
+      "on-scroll"     : 1,
+      "format": {
+        "months":     "<span color='#ffead3'><b>{}</b></span>",
+        "days":       "<span color='#c0caf5'>{}</span>",
+        "today":      "<span color='#f7768e'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+
+  "tray": { "spacing": 10 }
+}

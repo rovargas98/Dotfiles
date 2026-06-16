@@ -1,0 +1,53 @@
+;; ==============================================================================
+;; VARIABLES (Polling & Listening)
+;; ==============================================================================
+(defpoll audio_volume :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'")
+(defpoll gpu_usage :interval "2s" "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits")
+
+(deflisten spotify_track :initial "Sin reproducción" "playerctl --player=spotify metadata --format '{{title}}' --follow")
+(deflisten spotify_artist :initial "Esperando..." "playerctl --player=spotify metadata --format '{{artist}}' --follow")
+
+;; ==============================================================================
+;; WIDGET PRINCIPAL
+;; ==============================================================================
+(defwidget command-center []
+  (box :orientation "v" :space-evenly false :class "command-center-box" :spacing 20
+    
+    ;; AUDIO
+    (box :orientation "v" :space-evenly false :class "section audio" :spacing 8
+      (label :text "  AUDIO" :halign "start" :class "title")
+      (progress :value audio_volume :class "volume-bar")
+      (graph :value audio_volume :thickness 2 :time-range "30s" :dynamic true :class "vumeter"))
+    
+    ;; HARDWARE METRICS
+    (box :orientation "h" :space-evenly true :class "section metrics" :spacing 20
+      ;; CPU (Usando la variable mágica nativa de Eww)
+      (box :orientation "v" :space-evenly false :spacing 8
+        (label :text "  CPU: ${round(EWW_CPU.avg, 0)}%" :halign "start" :class "title")
+        (graph :value {EWW_CPU.avg} :thickness 2 :time-range "30s" :dynamic true :class "cpu-graph"))
+        
+      ;; GPU
+      (box :orientation "v" :space-evenly false :spacing 8
+        (label :text "󰢮  RTX 5070 Ti" :halign "start" :class "title")
+        (graph :value gpu_usage :thickness 2 :time-range "30s" :dynamic true :class "gpu-graph")))
+    
+    ;; SPOTIFY
+    (box :orientation "v" :space-evenly false :class "section now-playing" :spacing 4
+      (label :text "  ${spotify_track}" :halign "start" :class "track" :limit-width 35 :show-truncated true)
+      (label :text spotify_artist :halign "start" :class "artist" :limit-width 45 :show-truncated true))
+  )
+)
+
+;; ==============================================================================
+;; VENTANA (Capa de visualización para Hyprland)
+;; ==============================================================================
+(defwindow command-center-win
+  :monitor 0
+  :geometry (geometry :x "-15px" 
+                      :y "15px" 
+                      :width "380px" 
+                      :anchor "top right")
+  :stacking "fg"
+  :exclusive false
+  (command-center)
+)

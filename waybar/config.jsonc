@@ -1,0 +1,127 @@
+{
+  "exclusive": true,
+  "reload_style_on_change": true,
+  "position": "top",
+  "margin-top": 8,
+  "margin-left": 12,
+  "margin-right": 12,
+  "spacing": 8, 
+  
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "custom/vumeter", // Nuevo vúmetro
+    "mpris"
+  ],
+  "modules-right": [
+    "tray",
+    "network",
+    "disk",
+    "memory",
+    "cpu",
+    "temperature#cpu", // Temperatura CPU "gráfica"
+    "custom/gpu",
+    "pulseaudio",
+    "clock"
+  ],
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      "active": "󰮯",
+      "default": "󰊠",
+      "urgent": "󰗖"
+    }
+  },
+  "hyprland/window": {
+    "format": "󰣆 {initialTitle}",
+    "separate-outputs": true,
+    "max-length": 35,
+    "rewrite": {
+        "^$": "󰣆 CyberDeck"
+    }
+  },
+
+  // --- Monitores de Recursos ---
+  "cpu": {
+    "interval": 2,
+    "format": "󰻠 CPU:{usage}%",
+    "on-click": "kitty -e btop" 
+  },
+  "memory": {
+    "interval": 2,
+    "format": "󰍛 RAM:{used:0.1f}G",
+    "on-click": "kitty -e btop"
+  },
+
+  // Simulación de "gráfico" de temperatura usando iconos de bloques que suben
+  "temperature#cpu": {
+    "interval": 2,
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    "format": "{icon} {temperatureC}°C",
+    // Iconos que simulan un nivel subiendo:  _ ,  ▃ ,  ▅ ,  ▇ , ██
+    "format-icons": [" ","▃","▅","▇","█"], 
+    "tooltip-format": "CPU Core Temp"
+  },
+  "custom/gpu": {
+    "exec": "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits",
+    "interval": 2,
+    "format": "󰢮 GPU:{}°C",
+    "tooltip": false,
+    "on-click": "kitty -e nvtop"
+  },
+  "disk": {
+    "interval": 30,
+    "format": "󰋊 /:{percentage_used}%",
+    "path": "/"
+  },
+
+  // --- Red y Audio ---
+  "network": {
+    "format": "󰈀 ⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "interval": 2
+  },
+
+  // El Nuevo Vúmetro Falso
+  "custom/vumeter": {
+    "exec": "~/.config/waybar/scripts/vumeter.sh",
+    "restart-interval": 1, // Reinicia si falla
+    "format": "{}",
+    "tooltip": false
+  },
+
+  "mpris": {
+    "format": "{dynamic}",
+    "format-paused": "󰏤 {dynamic}",
+    "interval": 1, 
+    "dynamic-order": ["artist", "title"],
+    "max-length": 30,
+    "ignored-players": ["brave"]
+  },
+
+  "pulseaudio": {
+    "format": "󰕾 VOL:{volume}%",
+    "format-muted": "󰖁 MUTED",
+    "on-click": "pavucontrol",
+    "scroll-step": 5,
+    "on-click-right": "pamixer -t"
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "󰥔 {:%H:%M:%S  󰃭 %d/%m}",
+    "tooltip-format": "<tt>{calendar}</tt>"
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8
+  }
+}

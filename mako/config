@@ -1,0 +1,9 @@
+font=JetBrainsMono Nerd Font 10
+background-color=#1a1b26cc
+text-color=#c0caf5
+border-color=#7aa2f7
+border-size=1
+max-visible=3
+anchor=top-right
+margin=20,20
+padding=8
