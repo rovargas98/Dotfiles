@@ -20,10 +20,10 @@ hl.on("hyprland.start", function ()
    hl.exec_cmd("waybar & mako & hyprpaper & hypridle & pypr")
 
    -- Filtro de luz azul (Temperatura 4500K)
-   --hl.exec_cmd("hyprsunset --temperature 4500") 
+   hl.exec_cmd("hyprsunset --temperature 4500") 
 
    -- Widgets y utilidades de usuario
-   --hl.exec_cmd("eww daemon & eww open-many command-center")
+   hl.exec_cmd("eww daemon & eww open-many command-center")
    hl.exec_cmd("hyperhdr") 
 end)
 
