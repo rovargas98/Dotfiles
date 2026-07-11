@@ -8,6 +8,7 @@ hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("GBM_BACKEND", "nvidia-drm")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("XCURSOR_SIZE", "24")
+hl.env("TERMINAL", "kitty")
 
 -- 2. Autostart
 hl.on("hyprland.start", function ()
@@ -98,14 +99,15 @@ hl.window_rule({ match = { class = "^(Spotify|spotify)$" }, float = true, center
 -- DEFINICIÓN DE LA TECLA MODIFICADORA PRINCIPAL
 -- ==============================================================================
 local mod = "SUPER"
+local terminal = "kitty"
 
 -- ==============================================================================
 -- LANZADOR Y UTILIDADES BÁSICAS
 -- ==============================================================================
-hl.bind(mod .. " + Return", hl.dsp.exec_cmd("kitty"))
+hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mod .. " + Q",      hl.dsp.window.close())
-hl.bind(mod .. " + M",      hl.dsp.exit())
-hl.bind(mod .. " + E",      hl.dsp.exec_cmd("kitty -e yazi"))
+hl.bind(mod .. " + M",      hl.dsp.exec_cmd("hyprshutdown"))
+hl.bind(mod .. " + E",      hl.dsp.exec_cmd(terminal .. " -e yazi"))
 hl.bind(mod .. " + V",      hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mod .. " + R",      hl.dsp.exec_cmd("rofi -show drun"))
 hl.bind(mod .. " + F",      hl.dsp.window.fullscreen())

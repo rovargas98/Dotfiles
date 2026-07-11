@@ -6,7 +6,7 @@ cat << 'EOF' | rofi -dmenu -i -p "🔍 Buscar atajo..." -theme-str 'window {widt
 ======================================================================
 SUPER + Enter                 : Abrir la terminal (kitty)
 SUPER + Q                     : Cerrar la ventana actual activa
-SUPER + M                     : Salir de Hyprland
+SUPER + M                     : Cerrar sesión (hyprshutdown)
 SUPER + E                     : Abrir el explorador de archivos (yazi)
 SUPER + V                     : Alternar ventana entre flotante y mosaico
 SUPER + R                     : Abrir el lanzador de aplicaciones (rofi)
