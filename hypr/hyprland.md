@@ -9,6 +9,7 @@ hl.env("GBM_BACKEND", "nvidia-drm")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("TERMINAL", "kitty")
+hl.env("PATH", "/home/devops/.local/bin:" .. os.getenv("PATH"))
 
 -- 2. Autostart
 hl.on("hyprland.start", function ()
