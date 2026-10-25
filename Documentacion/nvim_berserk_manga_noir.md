@@ -20,6 +20,7 @@ Dotfiles/nvim/
         ├── lsp.lua          # Configuración de LSP Nativo + Mason
         ├── telescope.lua    # Búsqueda difusa y explorador de archivos
         ├── theme.lua        # Tema Berserk Manga Noir + Lualine Cyberpunk
+        ├── tmux.lua         # Navegación transparente Neovim + Tmux (Vim-Tmux-Navigator)
         └── treesitter.lua   # Resaltado sintáctico de alto rendimiento
 ```
 
@@ -69,3 +70,13 @@ Para evitar ensuciar el sistema con paquetes huérfanos de pacman:
 *   `K`: Mostrar documentación flotante de la función o parámetro (LSP Hover).
 *   `gd`: Ir a la definición de la función o variable.
 *   `<Space>ca`: Acciones de código (*Code Actions* / corrección rápida).
+
+---
+
+## ⚔️ 5. Integración Fluida Neovim + Tmux
+Gracias a `christoomey/vim-tmux-navigator` (configurado en `lua/plugins/tmux.lua` y en `tmux.conf`), el salto entre splits de Neovim y paneles de Tmux es 100% transparente:
+*   `Ctrl + h`: Mover foco a la izquierda (en Neovim o salta al panel Tmux izquierdo).
+*   `Ctrl + j`: Mover foco hacia abajo (en Neovim o salta al panel Tmux inferior).
+*   `Ctrl + k`: Mover foco hacia arriba (en Neovim o salta al panel Tmux superior).
+*   `Ctrl + l`: Mover foco a la derecha (en Neovim o salta al panel Tmux derecho).
+*   `Ctrl + \`: Alternar con el panel previo.

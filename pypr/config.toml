@@ -2,7 +2,7 @@
 plugins = ["scratchpads"]
 
 [scratchpads.term]
-command = "kitty --class scratch-term"
+command = "kitty --class scratch-term -e tmux new-session -A -s scratch"
 size = "60% 70%"
 
 [scratchpads.notes]

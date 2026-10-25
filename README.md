@@ -17,7 +17,7 @@ Entorno de trabajo avanzado de alto rendimiento para **Administración de Sistem
 * [🧩 Componentes Principales](#-componentes-principales)
   * [1. Hyprland (Lua API) & Reglas de Mosaico](#1-hyprland-lua-api--reglas-de-mosaico)
   * [2. Waybar Anti-Jitter con Telemetría Fija](#2-waybar-anti-jitter-con-telemetría-fija)
-  * [3. Terminal Kitty (Manga Noir & Tiling)](#3-terminal-kitty-manga-noir--tiling)
+  * [3. Ecosistema Terminal: Tmux CyberDeck DevOps & Kitty Wayland](#3-ecosistema-terminal-tmux-cyberdeck-devops--kitty-wayland)
   * [4. Neovim DevOps (LSP Nativo + Mason + PNPM)](#4-neovim-devops-lsp-nativo--mason--pnpm)
   * [5. Panel Lateral Eww (Command Center)](#5-panel-lateral-eww-command-center)
   * [6. Ecosistema Multimedia Spotube & Conectividad Móvil](#6-ecosistema-multimedia-spotube--conectividad-móvil)
@@ -57,6 +57,7 @@ Dotfiles/
 │   ├── kitty_completo.md
 │   ├── nvim_berserk_manga_noir.md
 │   ├── spotube_y_ecosistema_multimedia.md
+│   ├── tmux_devops_berserk.md
 │   └── waybar_berserk_cyberpunk.md
 ├── configuracion/        # Notas de soporte y perfiles SDDM
 ├── eww/                  # Centro de control interactivo Eww (CSS nativo)
@@ -68,7 +69,7 @@ Dotfiles/
 │   ├── hyprlock.conf     # Pantalla de bloqueo minimalista
 │   ├── hyprpaper.conf    # Fondos de pantalla duales
 │   └── scripts/          # Scripts de entorno y visor de keybinds
-├── kitty/                # Terminal Kitty con layouts splits y paleta Manga Noir
+├── kitty/                # Terminal Kitty acelerada por GPU (Wayland Host)
 │   └── kitty.conf
 ├── mako/                 # Demonio de notificaciones Wayland adaptado al tema
 │   └── config
@@ -83,6 +84,8 @@ Dotfiles/
 │   └── config.rasi
 ├── scripts-SYS/          # Automatizaciones de SysAdmin, Redes, SDDM y Seguridad
 ├── sddm_diagnostico/     # Parches y trazabilidad del gestor de inicio
+├── tmux/                 # Multiplexor Tmux Berserk Noir, broadcast F11 y TPM
+│   └── tmux.conf
 ├── wallpapers/           # Wallpapers en alta definición (Berserk & Tokyo Night)
 └── waybar/               # Barra superior con telemetría anti-jitter fija
     ├── config            # Declaración de módulos y tooltips
@@ -99,7 +102,7 @@ Pulsa `SUPER + I` en cualquier momento para desplegar el menú interactivo de at
 ### Gestión de Ventanas y Sistema
 | Atajo | Acción |
 | :--- | :--- |
-| `SUPER + Return` | Abrir terminal principal (**Kitty**) integrada en mosaico |
+| `SUPER + Return` | Abrir terminal principal (**Kitty + Tmux devops**) |
 | `SUPER + Q` | Cerrar ventana activa |
 | `SUPER + V` | Alternar modo flotante / mosaico |
 | `SUPER + F` | Alternar pantalla completa (*fullscreen*) |
@@ -144,16 +147,21 @@ Documentación completa en: **[waybar_berserk_cyberpunk.md](Documentacion/waybar
 *   **Telemetría forzada a dos dígitos:** Formato estricto `%02d` en CPU (`cpu-telemetry.sh`) y GPU (`gpu-telemetry.sh`).
 *   **Números tabulares:** Activación de `font-feature-settings: "tnum"` y anchos mínimos fijos (`min-width`) en CSS para que la barra permanezca 100% estática.
 
-### 3. Terminal Kitty (Manga Noir & Tiling)
-Documentación completa en: **[kitty_completo.md](Documentacion/kitty_completo.md)**.
-*   `remember_window_size no` y tamaño inicial de ventana fijado para evitar aperturas maximizadas accidentales.
-*   Paleta Berserk Manga Noir: fondo carbón `#0c0d12`, cursor Marca del Sacrificio `#ff2a3a` y colores estándar ANSI de alta legibilidad.
-*   Soporte integrado de layouts splits (`Ctrl+Shift+Enter`, `Ctrl+Shift+D`, `Ctrl+Shift+H`) y transmisión masiva a múltiples terminales con Broadcast Kitten (`F11`).
+### 3. Ecosistema Terminal: Tmux CyberDeck DevOps & Kitty Wayland
+Documentación completa en: **[tmux_devops_berserk.md](Documentacion/tmux_devops_berserk.md)** y **[kitty_completo.md](Documentacion/kitty_completo.md)**.
+*   **Arquitectura Desacoplada DevOps:** Kitty actúa como host gráfico de alto rendimiento (acelerado por GPU Wayland, blur de fondo a 0.88 y sincronización 144Hz) mientras **Tmux** asume el control absoluto de multiplexación, pestañas y persistencia de sesiones.
+*   **Prefijo Estándar Industria:** Configurado con **`Ctrl + B`** por defecto oficial (compatible con cualquier servidor remoto) y `Ctrl + A` como prefijo secundario opcional.
+*   **Shell Principal Automática:** Integración en Zsh con auto-attach limpio a la sesión `devops` antes del *instant prompt* para evitar fugas de caracteres y garantizar shells de rescate ante desconexiones.
+*   **Paleta Berserk Manga Noir en Tmux:** Barra de estado dinámica con indicador de sesión, hostname, reloj cyberpunk y bordes activos en rojo Marca del Sacrificio (`#ff2a3a`).
+*   **Splits Oficiales & Superpoderes:** Divisiones nativas (`Prefix + %` vertical, `Prefix + "` horizontal, `Prefix + |/-`), soporte completo de ratón y **Modo Broadcast con `F11`** (`synchronize-panes`) para cluster management masivo.
+*   **Navegación Fluida con Neovim:** Integración bidireccional mediante `christoomey/vim-tmux-navigator` para saltar entre Neovim y Tmux usando **`Ctrl + H/J/K/L`** de forma transparente.
+*   **Persistencia:** Gestor TPM integrado de forma asíncrona con `tmux-resurrect` y `tmux-continuum` para salvar y restaurar sesiones ante reinicios del sistema.
 
-### 4. Neovim DevOps (LSP Nativo + Mason + PNPM)
+### 4. Neovim DevOps (LSP Nativo + Mason + PNPM + Tmux Navigator)
 Documentación completa en: **[nvim_berserk_manga_noir.md](Documentacion/nvim_berserk_manga_noir.md)**.
 *   Arquitectura unificada bajo `lazy.nvim` eliminando carpetas anidadas erróneas.
 *   Tema Berserk Manga Noir con barra de estado Lualine personalizada con indicador de modo dinámico.
+*   Integración fluida con Tmux (`lua/plugins/tmux.lua` con `vim-tmux-navigator`).
 *   Entorno de ejecución Node.js aprovisionado mediante `pnpm` en `~/.local/share/pnpm/bin/` para soportar la instalación autónoma en `:Mason` de:
     *   `bash-language-server` (Scripts DevOps)
     *   `dockerfile-language-server` (Imágenes y contenedores)
@@ -209,6 +217,8 @@ git clone git@github.com:rovargas98/Dotfiles.git ~/Dotfiles
 # 2. Crear enlaces simbólicos hacia ~/.config/
 ln -sf ~/Dotfiles/hypr ~/.config/hypr
 ln -sf ~/Dotfiles/kitty ~/.config/kitty
+ln -sf ~/Dotfiles/tmux/tmux.conf ~/.tmux.conf
+ln -sf ~/Dotfiles/tmux ~/.config/tmux
 ln -sf ~/Dotfiles/waybar ~/.config/waybar
 ln -sf ~/Dotfiles/mako ~/.config/mako
 ln -sf ~/Dotfiles/nvim ~/.config/nvim

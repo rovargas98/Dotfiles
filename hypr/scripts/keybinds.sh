@@ -6,7 +6,7 @@ cat << 'EOF' | rofi -dmenu -i -p "󰘳 ATAJOS" -theme "$THEME"
 ======================================================================
 🚀 LANZADOR Y UTILIDADES BÁSICAS
 ======================================================================
-SUPER + Enter                 : Abrir terminal principal (kitty)
+SUPER + Enter                 : Abrir terminal DevOps (Kitty + Tmux devops)
 SUPER + Q                     : Cerrar la ventana activa
 SUPER + A                     : Alternar Centro de Control lateral (Eww)
 SUPER + I                     : Abrir este buscador interactivo de atajos
@@ -65,4 +65,17 @@ Teclas Multimedia             : Control de volumen del sistema (subir/bajar/mute
 ======================================================================
 SUPER + Clic Izquierdo        : Agarrar y arrastrar ventana libremente
 SUPER + Clic Derecho          : Redimensionar ventana interactivamente
+
+======================================================================
+⚔️ MULTIPLEXOR TMUX (DEVOPS WORKFLOW)
+======================================================================
+Prefijo Estándar Industria     : Ctrl + B (o Ctrl + A)
+Prefijo + %  o  Prefijo + |    : Dividir panel en vertical (lado a lado)
+Prefijo + "  o  Prefijo + -    : Dividir panel en horizontal (arriba y abajo)
+Alt + H / J / K / L           : Cambiar de panel rápido (sin prefijo)
+Alt + 1..9                    : Cambiar de ventana directa
+Alt + Z                       : Alternar Zoom / Maximizar panel
+F11  o  Prefijo + b           : 🔥 Activar/Desactivar MODO BROADCAST (todos los paneles)
+Prefijo + [                   : Modo copia Vi (Espacio/v: marcar, y: copiar wl-clipboard)
+Prefijo + r                   : Recargar configuración tmux.conf
 EOF

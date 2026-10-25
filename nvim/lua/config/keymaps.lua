@@ -15,11 +15,8 @@ map("n", "<leader>w", "<cmd>w<cr>", { desc = "Guardar archivo" })
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "Cerrar ventana" })
 map("n", "<leader>x", "<cmd>x<cr>", { desc = "Guardar y salir" })
 
--- Navegación entre ventanas / splits (Estilo Neovim moderno)
-map("n", "<C-h>", "<C-w>h", { desc = "Mover foco a split izquierdo" })
-map("n", "<C-j>", "<C-w>j", { desc = "Mover foco a split inferior" })
-map("n", "<C-k>", "<C-w>k", { desc = "Mover foco a split superior" })
-map("n", "<C-l>", "<C-w>l", { desc = "Mover foco a split derecho" })
+-- Navegación fluida entre splits de Neovim y paneles de Tmux gestionada por
+-- vim-tmux-navigator en lua/plugins/tmux.lua (Ctrl+h, Ctrl+j, Ctrl+k, Ctrl+l)
 
 -- Redimensión de splits con flechas
 map("n", "<C-Up>", "<cmd>resize +2<cr>", opts)
