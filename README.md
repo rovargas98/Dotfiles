@@ -11,7 +11,6 @@ Entorno de trabajo avanzado de alto rendimiento para **Administración de Sistem
 ---
 
 ## 📑 Tabla de Contenidos
-* [🖥️ Especificaciones de Hardware y Monitores](#-especificaciones-de-hardware-y-monitores)
 * [🎨 Identidad Estética y Paleta de Colores](#-identidad-estética-y-paleta-de-colores)
 * [🏛️ Estructura del Repositorio](#-estructura-del-repositorio)
 * [⌨️ Atajos de Teclado Maestros (Keybinds)](#-atajos-de-teclado-maestros-keybinds)
@@ -26,21 +25,6 @@ Entorno de trabajo avanzado de alto rendimiento para **Administración de Sistem
 * [🛠️ Scripts de Automatización DevOps (`scripts-SYS/`)](#-scripts-de-automatización-devops-scripts-sys)
 * [⚡ Despliegue Rápido (Symlinks)](#-despliegue-rápido-symlinks)
 * [🧠 Integración con Obsidian CyberDeck](#-integración-con-obsidian-cyberdeck)
-
----
-
-## 🖥️ Especificaciones de Hardware y Monitores
-
-El entorno está configurado para aprovechar al máximo una disposición multimonitor a alta tasa de refresco (144Hz):
-
-| Salida | Modelo | Resolución / Hz | Espacios de Trabajo Asignados | Rol |
-| :--- | :--- | :--- | :--- | :--- |
-| **DP-2** | AOC Q27G2WG4 (27") | `2560x1440 @ 144Hz` | Impares: `1, 3, 5, 7, 9` | Monitor Principal (Código, Navegador, LLM) |
-| **DP-1** | AOC G2490W1G4 (24") | `1920x1080 @ 144Hz` | Pares: `2, 4, 6, 10` | Monitor Secundario (Terminales, Docker, Logs) |
-
-*   **GPU:** NVIDIA GeForce RTX 5070 Ti (Driver 615.78+ con Direct Scanout Wayland).
-*   **Gestión de Energía:** Suspensión/Reanudación con preservación íntegra de VRAM en `/var/tmp` vía `nvidia-powerd` y systemd services.
-*   **Gestión Multiusuario:** Despachador en SDDM que arranca `devops` en Hyprland Wayland y `ro` en KDE Plasma.
 
 ---
 
