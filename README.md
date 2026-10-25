@@ -17,19 +17,23 @@ Este repositorio contiene los archivos de configuración (dotfiles) y scripts de
 Dotfiles/
 ├── Documentacion/        # Manuales completos de herramientas
 │   ├── eww_documentacion_completa.md
-│   └── kitty_completo.md
+│   ├── kitty_completo.md
+│   ├── nvim_berserk_manga_noir.md
+│   ├── spotube_y_ecosistema_multimedia.md
+│   └── waybar_berserk_cyberpunk.md
 ├── configuracion/        # Notas de configuración del sistema
 ├── eww/                  # Widgets interactivos del panel lateral (Eww)
 ├── hypr/                 # Configuración de Hyprland (Lua API), bloqueo y wallpapers
-├── kitty/                # Terminal Kitty con layouts y broadcast activo
+├── kitty/                # Terminal Kitty con layouts, broadcast y tema Berserk Manga
 ├── mako/                 # Notificaciones minimalistas adaptadas a Tokyo Night
-├── nvim/                 # IDE Neovim (v0.11+) con LSP Nativo y Lazy.nvim
+├── nvim/                 # IDE Neovim (v0.11+) unificado con LSP Nativo y Lazy.nvim
 ├── pypr/                 # Mapeo de Scratchpads (terminal, notas, música, serial)
 ├── pyprland/             # Copias alternativas de comportamiento de Pyprland
+├── rofi/                 # Lanzador de aplicaciones y visor de atajos con tema Berserk
 ├── scripts-SYS/          # Scripts maestros de mantenimiento y seguridad (DevOps)
 ├── sddm_diagnostico/     # Registro y parches aplicados a la pantalla de login
 ├── wallpapers/           # Wallpapers predefinidos (DP-1 y DP-2)
-└── waybar/               # Barra superior con telemetría en tiempo real y VU Meter
+└── waybar/               # Barra superior Cyberpunk Berserk con telemetría fija y VU Meter
 ```
 
 ---
@@ -45,6 +49,7 @@ ln -s ~/Dotfiles/waybar ~/.config/waybar
 ln -s ~/Dotfiles/mako ~/.config/mako
 ln -s ~/Dotfiles/nvim ~/.config/nvim
 ln -s ~/Dotfiles/eww ~/.config/eww
+ln -s ~/Dotfiles/rofi ~/.config/rofi
 ln -s ~/Dotfiles/pyprland ~/.config/pypr
 ```
 
@@ -81,6 +86,12 @@ Automatizaciones críticas para SysAdmins:
 *   **[secure-docker-ufw.sh](scripts-SYS/secure-docker-ufw.sh):** Protege los contenedores Docker aislando puertos expuestos (ej. `3306`) y configurando `ufw-docker` en la interfaz `enp4s0`.
 *   **[setup-portals.sh](scripts-SYS/setup-portals.sh):** Configura los portales XDG para corregir el streaming de pantalla en Hyprland.
 *   **[fix-sddm.sh](scripts-SYS/fix-sddm.sh):** Corrige el parpadeo negro en SDDM y activa el guardado de la última sesión para separar KDE de Hyprland.
+*   **[fix-nvidia-power.sh](scripts-SYS/fix-nvidia-power.sh):** Soluciona los cuelgues al suspender/reanudar con NVIDIA preservando la VRAM en `/var/tmp` y actualizando initramfs.
+*   **[setup-sddm-astronaut.sh](scripts-SYS/setup-sddm-astronaut.sh):** Instala el tema `sddm-astronaut-theme` y configura el despachador de entorno automático (devops -> Hyprland, ro -> KDE Plasma).
+*   **[set-sddm-berserk.sh](scripts-SYS/set-sddm-berserk.sh):** Personaliza `sddm-astronaut-theme` con la paleta Berserk (`#ff2a3a`), `JetBrainsMono Nerd Font` y los wallpapers del sistema (`marca.png` o `guts.png`).
+*   **[steam-lan-ufw.sh](scripts-SYS/steam-lan-ufw.sh):** Habilita las reglas de cortafuegos UFW para descubrimiento y streaming local de Steam (puertos 27031-27037) restringido a la LAN `192.168.1.0/24`.
+*   **[enable-phone-connect.sh](scripts-SYS/enable-phone-connect.sh):** Desbloquea en UFW los puertos de KDE Connect (`1714:1764` TCP/UDP) y Spotube Connect (`9090` TCP), activando Avahi mDNS.
+*   **[spotube-connect-ufw.sh](scripts-SYS/spotube-connect-ufw.sh):** Regla de firewall específica para Spotube Connect restringida a la red local.
 *   **[configurador-firewall.sh](scripts-SYS/configurador-firewall.sh):** Detecta el firewall UFW, encuentra un puerto libre de forma dinámica y genera/aplica la regla restringida para `enp4s0` y la red `192.168.1.0/24`.
 
 

@@ -1,63 +1,175 @@
 * {
-    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 13px;
+    font-feature-settings: "tnum";
     border: none;
     border-radius: 0;
     min-height: 0;
 }
 
 window#waybar {
-    background-color: rgba(26, 27, 38, 0.85);
-    border-bottom: 2px solid #7aa2f7;
-    color: #c0caf5;
+    background-color: transparent;
+    color: #d5d6db;
 }
 
-.modules-left { padding-left: 15px; }
-.modules-right { padding-right: 15px; }
-
-#workspaces button { padding: 0 10px; color: #565f89; background: transparent; transition: all 0.3s ease; }
-#workspaces button.active { color: #7aa2f7; font-weight: bold; }
-#workspaces button:hover { color: #c0caf5; background-color: rgba(65, 72, 104, 0.5); border-radius: 6px; }
-
-/* Contenedores base con animación suave */
-#clock, #memory, #tray, #window, #mpris, #disk, #network, #pulseaudio, #custom-cpu_telemetry, #custom-gpu_telemetry {
-    padding: 0 12px;
-    margin: 4px 4px;
-    border-radius: 6px;
-    background-color: rgba(36, 40, 59, 0.6);
-    transition: color 0.5s ease, background-color 0.5s ease;
+/* --- ISLAS FLOTANTES (CYBERPUNK BERSERK NOIR) --- */
+.modules-left, .modules-center, .modules-right {
+    background-color: rgba(12, 13, 18, 0.92);
+    border: 1px solid rgba(255, 42, 58, 0.35);
+    border-radius: 12px;
+    padding: 2px 6px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.75), 0 0 10px rgba(255, 42, 58, 0.15);
 }
 
-/* Efecto hover general para los módulos */
-#clock:hover, #memory:hover, #disk:hover, #pulseaudio:hover, #mpris:hover, #network:hover {
-    background-color: rgba(65, 72, 104, 0.8);
+/* --- WORKSPACES --- */
+#workspaces {
+    padding: 0 2px;
 }
 
-/* Colores Estáticos */
-#window { color: #7dcfff; }
-#mpris { color: #1abc9c; }
-#pulseaudio { color: #8aadf4; }
-#network { color: #ff9e64; }
-#disk { color: #b4f9f8; }
-#memory { color: #e0af68; }
-#clock { color: #bb9af7; font-weight: bold; }
-#tray { background-color: transparent; }
+#workspaces button {
+    padding: 0 8px;
+    color: #4b5263;
+    background: transparent;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
 
-/* ==========================================
-   PALETA TERMICA DINÁMICA (CPU & GPU)
-   ========================================== */
-/* Frío (<50°C) -> Azul */
-#custom-cpu_telemetry.cold, #custom-gpu_telemetry.cold { color: #7dcfff; }
+#workspaces button.active {
+    color: #ffffff;
+    background-color: #ff2a3a;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 42, 58, 0.60);
+}
 
-/* Normal (50-70°C) -> Verde */
-#custom-cpu_telemetry.normal, #custom-gpu_telemetry.normal { color: #9ece6a; }
+#workspaces button:hover {
+    color: #ffffff;
+    background-color: rgba(255, 42, 58, 0.25);
+}
 
-/* Caliente (70-85°C) -> Amarillo */
-#custom-cpu_telemetry.warm, #custom-gpu_telemetry.warm { color: #e0af68; }
+/* --- CONTENEDORES DE MÓDULOS BASE --- */
+#clock, #memory, #tray, #window, #mpris, #disk, #network, #pulseaudio, 
+#custom-cpu_telemetry, #custom-gpu_telemetry, #custom-control_center, #custom-power {
+    padding: 3px 10px;
+    margin: 2px 3px;
+    border-radius: 8px;
+    background-color: rgba(18, 19, 26, 0.75);
+    border: 1px solid rgba(75, 82, 99, 0.25);
+    transition: all 0.25s ease;
+}
 
-/* Crítico (>85°C) -> Rojo Berserk (Parpadeo sutil) */
+/* Hover interactivo */
+#clock:hover, #memory:hover, #disk:hover, #pulseaudio:hover, #mpris:hover, 
+#network:hover, #custom-cpu_telemetry:hover, #custom-gpu_telemetry:hover {
+    background-color: rgba(36, 37, 51, 0.90);
+    border-color: rgba(255, 42, 58, 0.40);
+    color: #ffffff;
+}
+
+/* --- ANCHOS MÍNIMOS ANTIBALANCEO (ANTI-JITTER ESTÁTICO) --- */
+#custom-cpu_telemetry, #custom-gpu_telemetry {
+    min-width: 122px;
+}
+
+#memory {
+    min-width: 65px;
+}
+
+#disk {
+    min-width: 65px;
+}
+
+#pulseaudio {
+    min-width: 72px;
+}
+
+#clock {
+    min-width: 168px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* --- PALETA CIBERPUNK BERSERK --- */
+#window { 
+    color: #56b6c2; /* Neon Cyan */
+    font-weight: 500;
+}
+
+#mpris { 
+    color: #d5d6db; 
+    border-left: 3px solid #ff2a3a; /* Marca Berserk */
+}
+
+#pulseaudio { 
+    color: #c678dd; /* Cyber Violet */
+}
+
+#network { 
+    color: #56b6c2; /* Neon Cyan */
+}
+
+#disk { 
+    color: #abb2bf; /* Manga Slate */
+}
+
+#memory { 
+    color: #bb9af7; /* Electric Purple */
+}
+
+#tray { 
+    background-color: transparent; 
+}
+
+/* --- BOTÓN DE CENTRO DE CONTROL (EWW) --- */
+#custom-control_center {
+    color: #56b6c2;
+    background-color: rgba(86, 182, 194, 0.12);
+    border: 1px solid rgba(86, 182, 194, 0.35);
+    padding: 3px 10px;
+    font-size: 15px;
+}
+
+#custom-control_center:hover {
+    background-color: #56b6c2;
+    color: #0c0d12;
+    box-shadow: 0 0 12px rgba(86, 182, 194, 0.7);
+}
+
+/* --- BOTÓN DE ENERGÍA BERSERK --- */
+#custom-power {
+    color: #ff2a3a;
+    background-color: rgba(255, 42, 58, 0.15);
+    border: 1px solid rgba(255, 42, 58, 0.35);
+    padding: 3px 12px;
+    font-weight: bold;
+}
+
+#custom-power:hover {
+    background-color: #ff2a3a;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(255, 42, 58, 0.8);
+}
+
+/* --- PALETA TÉRMICA DINÁMICA (CPU & GPU) --- */
+/* Frío (<50°C) -> Neon Cyan */
+#custom-cpu_telemetry.cold, #custom-gpu_telemetry.cold { 
+    color: #56b6c2; 
+}
+
+/* Normal (50-70°C) -> Jade Óptimo */
+#custom-cpu_telemetry.normal, #custom-gpu_telemetry.normal { 
+    color: #98c379; 
+}
+
+/* Caliente (70-85°C) -> Amber Ciberpunk */
+#custom-cpu_telemetry.warm, #custom-gpu_telemetry.warm { 
+    color: #e5c07b; 
+}
+
+/* Crítico (>85°C) -> Rojo Berserk con alerta */
 #custom-cpu_telemetry.hot, #custom-gpu_telemetry.hot { 
     color: #ff2a3a; 
     font-weight: bold;
-    background-color: rgba(255, 42, 58, 0.15);
+    background-color: rgba(255, 42, 58, 0.25);
+    border: 1px solid #ff2a3a;
+    box-shadow: 0 0 10px rgba(255, 42, 58, 0.6);
 }

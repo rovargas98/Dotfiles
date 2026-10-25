@@ -25,8 +25,10 @@ hl.on("hyprland.start", function ()
    --hl.exec_cmd("hyprsunset --temperature 4500") 
 
    -- Widgets y utilidades de usuario
-   --hl.exec_cmd("eww daemon & eww open-many command-center")
+   hl.exec_cmd("eww daemon")
    hl.exec_cmd("hyperhdr") 
+   hl.exec_cmd("sunshine") 
+   hl.exec_cmd("kdeconnect-indicator") 
 end)
 
 -- 3. Monitores
@@ -89,12 +91,14 @@ hl.workspace_rule({ workspace = "6", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "10", monitor = "DP-1" })
 
 -- 7. Reglas de Ventanas (WindowRules V2)
+-- Evitar que aplicaciones (como Kitty) soliciten maximizado y rompan el mosaico
+hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize" })
 -- CORRECCIÓN APLICADA: El tamaño ahora es un string entre comillas dobles
 hl.window_rule({ match = { class = "^(virt-manager)$", title = "^(Localizar soporte ISO)$" }, size = "{800, 600}", center = true })
 hl.window_rule({ match = { class = "^(scratch-term)$" }, float = true, center = true })
 hl.window_rule({ match = { class = "^(scratch-notes)$" }, float = true, center = true })
 hl.window_rule({ match = { class = "^(scratch-serial)$" }, float = true, center = true })
-hl.window_rule({ match = { class = "^(Spotify|spotify)$" }, float = true, center = true })
+hl.window_rule({ match = { class = "^(Spotify|spotify|Spotube|spotube)$" }, float = true, center = true })
 
 -- ==============================================================================
 -- DEFINICIÓN DE LA TECLA MODIFICADORA PRINCIPAL
@@ -107,6 +111,7 @@ local terminal = "kitty"
 -- ==============================================================================
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mod .. " + Q",      hl.dsp.window.close())
+hl.bind(mod .. " + A",      hl.dsp.exec_cmd("eww open --toggle command-center-win"))
 hl.bind(mod .. " + M",      hl.dsp.exec_cmd("hyprshutdown"))
 hl.bind(mod .. " + E",      hl.dsp.exec_cmd(terminal .. " -e yazi"))
 hl.bind(mod .. " + V",      hl.dsp.window.float({ action = "toggle" }))

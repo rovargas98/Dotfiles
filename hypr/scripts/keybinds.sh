@@ -1,55 +1,68 @@
 #!/usr/bin/env bash
 
-cat << 'EOF' | rofi -dmenu -i -p "🔍 Buscar atajo..." -theme-str 'window {width: 850px;} listview {lines: 20;}'
+THEME="$HOME/Dotfiles/rofi/berserk-keybinds.rasi"
+
+cat << 'EOF' | rofi -dmenu -i -p "󰘳 ATAJOS" -theme "$THEME"
 ======================================================================
 🚀 LANZADOR Y UTILIDADES BÁSICAS
 ======================================================================
-SUPER + Enter                 : Abrir la terminal (kitty)
-SUPER + Q                     : Cerrar la ventana actual activa
-SUPER + M                     : Cerrar sesión (hyprshutdown)
-SUPER + E                     : Abrir el explorador de archivos (yazi)
+SUPER + Enter                 : Abrir terminal principal (kitty)
+SUPER + Q                     : Cerrar la ventana activa
+SUPER + A                     : Alternar Centro de Control lateral (Eww)
+SUPER + I                     : Abrir este buscador interactivo de atajos
+SUPER + M                     : Menú de apagado y sesión (hyprshutdown)
+SUPER + E                     : Explorador de archivos en terminal (yazi)
 SUPER + V                     : Alternar ventana entre flotante y mosaico
-SUPER + R                     : Abrir el lanzador de aplicaciones (rofi)
-SUPER + F                     : Pantalla completa (fullscreen)
+SUPER + R                     : Lanzador de aplicaciones del sistema (rofi)
+SUPER + F                     : Alternar modo pantalla completa (fullscreen)
 
 ======================================================================
 🎯 NAVEGACIÓN Y FOCO
 ======================================================================
-SUPER + Tab                   : Ciclar ventanas abiertas (estilo Alt-Tab)
-SUPER + Flechas               : Mover el foco (Arriba/Abajo/Izq/Der)
-SUPER + H/J/K/L               : Mover el foco (Estilo Vim)
+SUPER + Tab                   : Alternar entre ventanas abiertas (estilo Alt-Tab)
+SUPER + Flechas               : Mover el foco (Arriba / Abajo / Izquierda / Derecha)
+SUPER + H / J / K / L         : Mover el foco en estilo Vim
 
 ======================================================================
-🖥️ WORKSPACES (Áreas de trabajo)
+🖥️ WORKSPACES (Áreas de trabajo multimonitor)
 ======================================================================
-SUPER + [1-9]                 : Cambiar al workspace 1 al 9
+SUPER + [1-9]                 : Cambiar al workspace 1 al 9 (DP-2 impares, DP-1 pares)
 SUPER + SHIFT + [1-9]         : Mover la ventana activa al workspace 1 al 9
 
 ======================================================================
 🔲 GESTIÓN Y REDIMENSIÓN DE VENTANAS
 ======================================================================
-SUPER + SHIFT + Flechas       : Mover ventana físicamente por la cuadrícula
-SUPER + SHIFT + H/J/K/L       : Mover ventana físicamente (Estilo Vim)
-SUPER + CTRL + Flechas        : Redimensionar ventana (mantener para repetir)
+SUPER + SHIFT + Flechas       : Desplazar ventana por la cuadrícula
+SUPER + SHIFT + H / J / K / L : Desplazar ventana por la cuadrícula (Estilo Vim)
+SUPER + CTRL + Flechas        : Redimensionar ventana activa (mantener pulsado)
 
 ======================================================================
 🛠️ SCRATCHPADS (Ventanas flotantes - Pyprland)
 ======================================================================
-SUPER + SHIFT + T             : Mostrar/Ocultar terminal flotante
-SUPER + SHIFT + N             : Mostrar/Ocultar notas flotantes
-SUPER + SHIFT + M             : Mostrar/Ocultar reproductor de música
-SUPER + SHIFT + S             : Mostrar/Ocultar utilidad serial
+SUPER + SHIFT + T             : Mostrar/Ocultar terminal flotante (scratch-term)
+SUPER + SHIFT + N             : Mostrar/Ocultar notas flotantes (scratch-notes)
+SUPER + SHIFT + M             : Mostrar/Ocultar reproductor de música (Spotube)
+SUPER + SHIFT + S             : Mostrar/Ocultar consola serial (scratch-serial)
 
 ======================================================================
-📸 CAPTURAS Y MULTIMEDIA
+📊 BARRA SUPERIOR (Waybar - Acciones Interactivas)
 ======================================================================
-Print (Impr Pant)             : Capturar pantalla completa (~/capturas/)
-SHIFT + Print                 : Capturar una región específica de la pantalla
-Teclas Multimedia             : Subir, bajar o silenciar el volumen general
+Clic en CPU / Memoria         : Abrir monitor de recursos interactivo (btop)
+Clic en Centro de Control (󱄄) : Abrir/Cerrar Centro de Control lateral (Eww)
+Clic en Botón Berserk (󰐥)     : Abrir menú de apagado/bloqueo (hyprshutdown)
+Rueda ratón sobre Volumen     : Subir / Bajar volumen
+Clic sobre Icono de Volumen   : Silenciar / Activar sonido general
 
 ======================================================================
-🖱️ INTEGRACIÓN PROFESIONAL CON EL RATÓN
+📸 CAPTURAS DE PANTALLA Y AUDIO
 ======================================================================
-SUPER + Clic Izquierdo        : Mantener pulsado para agarrar y mover ventana
-SUPER + Clic Derecho          : Mantener pulsado para redimensionar ventana
+Print (Impr Pant)             : Capturar pantalla completa (~/Pictures/)
+SHIFT + Print                 : Capturar área o región específica
+Teclas Multimedia             : Control de volumen del sistema (subir/bajar/mute)
+
+======================================================================
+🖱️ GESTIÓN CON RATÓN
+======================================================================
+SUPER + Clic Izquierdo        : Agarrar y arrastrar ventana libremente
+SUPER + Clic Derecho          : Redimensionar ventana interactivamente
 EOF

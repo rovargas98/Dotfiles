@@ -1,0 +1,16 @@
+# Backups y archivos temporales
+*.backup
+*.bak
+*.conflict_bak
+*.tmp
+*~
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Node / pnpm
+node_modules/
+
+# Logs temporales
+*.log

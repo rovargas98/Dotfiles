@@ -10,8 +10,8 @@ command = "kitty --class scratch-notes nvim ~/.notes/quicknotes.md"
 size = "50% 60%"
 
 [scratchpads.music]
-command = "spotify"
-size = "35% 50%"
+command = "spotube"
+size = "50% 60%"
 
 [scratchpads.serial]
 command = "kitty --class scratch-serial"

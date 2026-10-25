@@ -1,50 +1,105 @@
 ;; ==============================================================================
 ;; VARIABLES (Polling & Listening)
 ;; ==============================================================================
-(defpoll audio_volume :interval "1s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'")
-(defpoll gpu_usage :interval "2s" "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits")
+(defpoll audio_volume :interval "1s" :initial "50" "wpctl get-volume @DEFAULT_AUDIO_SINK@ 2>/dev/null | awk '{print int($2 * 100)}'")
+(defpoll gpu_usage :interval "2s" :initial "0" "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null || echo 0")
+(defpoll uptime_text :interval "60s" :initial "0m" "uptime -p | sed 's/up //'")
+(defpoll nightlight_active :interval "2s" :initial "off" "pgrep -x hyprsunset >/dev/null && echo 'on' || echo 'off'")
 
-(deflisten spotify_track :initial "Sin reproducción" "playerctl --player=spotify metadata --format '{{title}}' --follow")
-(deflisten spotify_artist :initial "Esperando..." "playerctl --player=spotify metadata --format '{{artist}}' --follow")
+;; Escucha dinámica de música (Spotube / Navegador / Reproductor activo)
+(deflisten music_track :initial "Sin reproducción" "playerctl --player=spotube,spotify,firefox metadata --format '{{title}}' --follow 2>/dev/null")
+(deflisten music_artist :initial "CyberDeck Audio" "playerctl --player=spotube,spotify,firefox metadata --format '{{artist}}' --follow 2>/dev/null")
+(deflisten music_status :initial "Stopped" "playerctl --player=spotube,spotify,firefox status --follow 2>/dev/null")
 
 ;; ==============================================================================
-;; WIDGET PRINCIPAL
+;; WIDGET PRINCIPAL: COMMAND CENTER
 ;; ==============================================================================
 (defwidget command-center []
-  (box :orientation "v" :space-evenly false :class "command-center-box" :spacing 20
+  (box :orientation "v" :space-evenly false :class "command-center-box" :spacing 14
     
-    ;; AUDIO
+    ;; CABECERA: USUARIO & SISTEMA
+    (box :orientation "h" :space-evenly false :class "header"
+      (box :orientation "h" :space-evenly false :spacing 10 :halign "start"
+        (label :text "󰣆" :class "avatar-icon")
+        (box :orientation "v" :space-evenly false
+          (label :text "devops // rocachyos" :class "user-title" :halign "start")
+          (label :text "Activo: ${uptime_text}" :class "user-subtitle" :halign "start")))
+      (box :halign "end" :hexpand true
+        (button :onclick "eww close command-center-win" :class "btn-close" "󰅖")))
+
+    ;; QUICK TOGGLES (BOTONES RÁPIDOS DE CONTROL)
+    (box :orientation "h" :space-evenly true :class "quick-toggles" :spacing 8
+      ;; Luz Nocturna (Hyprsunset)
+      (button :class "toggle-btn ${nightlight_active == 'on' ? 'active' : ''}" 
+              :onclick "pkill -x hyprsunset || hyprsunset --temperature 4500 &" 
+              :tooltip "Alternar Filtro Nocturno (4500K)"
+              "󰖔")
+      ;; Terminal Flotante
+      (button :class "toggle-btn" 
+              :onclick "pypr toggle term" 
+              :tooltip "Abrir Scratchpad Terminal"
+              "")
+      ;; Spotube Scratchpad
+      (button :class "toggle-btn" 
+              :onclick "pypr toggle music" 
+              :tooltip "Abrir Spotube Flotante"
+              "󰎈")
+      ;; Conmutador de Audio (Auriculares / Altavoces)
+      (button :class "toggle-btn" 
+              :onclick "~/Dotfiles/waybar/scripts/audio-switch.sh" 
+              :tooltip "Alternar Salida de Audio"
+              "󰓃")
+      ;; Apagar / Cerrar Sesión
+      (button :class "toggle-btn btn-power" 
+              :onclick "hyprshutdown" 
+              :tooltip "Menú de Cierre / Apagado"
+              ""))
+
+    ;; CONTROL DE AUDIO INTERACTIVO (SLIDER)
     (box :orientation "v" :space-evenly false :class "section audio" :spacing 8
-      (label :text "  AUDIO" :halign "start" :class "title")
-      (progress :value audio_volume :class "volume-bar")
-      (graph :value audio_volume :thickness 2 :time-range "30s" :dynamic true :class "vumeter"))
-    
-    ;; HARDWARE METRICS
-    (box :orientation "h" :space-evenly true :class "section metrics" :spacing 20
+      (box :orientation "h" :space-evenly false
+        (label :text "  AUDIO GENERAL" :halign "start" :class "title")
+        (label :text "${audio_volume}%" :halign "end" :hexpand true :class "volume-pct"))
+      (scale :class "volume-scale" 
+             :min 0 
+             :max 101 
+             :value audio_volume 
+             :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%"))
+
+    ;; HARDWARE TELEMETRY (CPU + GPU RTX 5070 Ti)
+    (box :orientation "h" :space-evenly true :class "section metrics" :spacing 12
       ;; CPU (Usando la variable mágica nativa de Eww)
-      (box :orientation "v" :space-evenly false :spacing 8
+      (box :orientation "v" :space-evenly false :spacing 6
         (label :text "  CPU: ${round(EWW_CPU.avg, 0)}%" :halign "start" :class "title")
         (graph :value {EWW_CPU.avg} :thickness 2 :time-range "30s" :dynamic true :class "cpu-graph"))
         
-      ;; GPU
-      (box :orientation "v" :space-evenly false :spacing 8
-        (label :text "󰢮  RTX 5070 Ti" :halign "start" :class "title")
+      ;; GPU RTX 5070 Ti
+      (box :orientation "v" :space-evenly false :spacing 6
+        (label :text "󰢮  RTX 5070 Ti: ${gpu_usage}%" :halign "start" :class "title-berserk")
         (graph :value gpu_usage :thickness 2 :time-range "30s" :dynamic true :class "gpu-graph")))
-    
-    ;; SPOTIFY
-    (box :orientation "v" :space-evenly false :class "section now-playing" :spacing 4
-      (label :text "  ${spotify_track}" :halign "start" :class "track" :limit-width 35 :show-truncated true)
-      (label :text spotify_artist :halign "start" :class "artist" :limit-width 45 :show-truncated true))
+
+    ;; SPOTUBE / MULTIMEDIA
+    (box :orientation "v" :space-evenly false :class "section now-playing" :spacing 6
+      (box :orientation "h" :space-evenly false :spacing 8
+        (label :text "󰎈" :class "music-icon")
+        (box :orientation "v" :space-evenly false
+          (label :text music_track :halign "start" :class "track" :limit-width 30 :show-truncated true)
+          (label :text music_artist :halign "start" :class "artist" :limit-width 35 :show-truncated true)))
+      ;; Controles táctiles de reproducción
+      (box :orientation "h" :space-evenly true :class "music-controls"
+        (button :onclick "playerctl previous" :class "btn-media" "󰒮")
+        (button :onclick "playerctl play-pause" :class "btn-media btn-play" "${music_status == 'Playing' ? '󰏤' : '󰐊'}")
+        (button :onclick "playerctl next" :class "btn-media" "󰒭")))
   )
 )
 
 ;; ==============================================================================
-;; VENTANA (Capa de visualización para Hyprland)
+;; VENTANA FLOTANTE (HYPRLAND LAYER)
 ;; ==============================================================================
 (defwindow command-center-win
   :monitor 0
-  :geometry (geometry :x "-15px" 
-                      :y "15px" 
+  :geometry (geometry :x "-14px" 
+                      :y "56px" 
                       :width "380px" 
                       :anchor "top right")
   :stacking "fg"
